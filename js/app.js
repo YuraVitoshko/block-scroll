@@ -11,34 +11,29 @@
     }), 0);
     const sections = document.querySelectorAll(".article-page__title");
     const menuItems = document.querySelectorAll(".sidebar-page__item");
-    document.querySelector(".sidebar-page__list::before");
     const sidebarList = document.querySelector(".sidebar-page__list");
     function updateIndicator() {
-        let currentSectionId = "";
-        sections.forEach((section => {
+        let currentIndex = 0;
+        sections.forEach(((section, index) => {
             const sectionTop = section.offsetTop;
-            if (window.pageYOffset >= sectionTop - 150) currentSectionId = section.getAttribute("id");
+            if (window.pageYOffset >= sectionTop - 150) currentIndex = index;
         }));
-        menuItems.forEach((item => {
-            const anchor = item.querySelector("a");
-            const hrefId = anchor.getAttribute("href").slice(1);
-            if (hrefId === currentSectionId) {
-                const itemRect = item.getBoundingClientRect();
-                const listRect = sidebarList.getBoundingClientRect();
-                const offset = itemRect.top - listRect.top + itemRect.height / 2.5;
-                sidebarList.style.setProperty("--dot-position", `${offset}px`);
-            }
-        }));
+        const activeItem = menuItems[currentIndex];
+        if (activeItem) {
+            const itemRect = activeItem.getBoundingClientRect();
+            const listRect = sidebarList.getBoundingClientRect();
+            const offset = itemRect.top - listRect.top + itemRect.height / 2.5;
+            sidebarList.style.setProperty("--dot-position", `${offset}px`);
+        }
     }
     window.addEventListener("scroll", updateIndicator);
     window.addEventListener("load", updateIndicator);
-    document.querySelectorAll(".sidebar-page__item a").forEach((link => {
-        link.addEventListener("click", (function(e) {
+    document.querySelectorAll(".sidebar-page__item").forEach(((item, index) => {
+        item.addEventListener("click", (function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute("href").slice(1);
-            const target = document.getElementById(targetId);
+            const target = sections[index];
             if (target) window.scrollTo({
-                top: target.offsetTop - 50,
+                top: target.offsetTop,
                 behavior: "smooth"
             });
         }));

@@ -133,7 +133,8 @@ h6 {
   object-fit: contain
 }
 .page {
-  padding-top: 100px
+  padding-top: 100px;
+  padding-bottom: 500px
 }
 .page__container {
   display: flex;
@@ -184,7 +185,8 @@ h6 {
   background-color: #707070
 }
 .sidebar-page__item {
-  font-size: 1.375rem
+  font-size: 1.375rem;
+  cursor: pointer
 }
 .article-page {
   flex: 1 1 70%
