@@ -185,8 +185,10 @@ h6 {
   background-color: #707070
 }
 .sidebar-page__item {
-  font-size: 1.375rem;
-  cursor: pointer
+  font-size: 1.375rem
+}
+.sidebar-page__item._active {
+  color: #00f
 }
 .article-page {
   flex: 1 1 70%
